@@ -1,0 +1,67 @@
+#!/bin/bash
+set -euxo pipefail
+
+# =========================
+# Variables
+# =========================
+DB_HOST="odoo-server-4k5k6ñ7.rds.amazonaws.com"
+DB_PORT="5432"
+DB_NAME="odoo"
+DB_USER="odoo"
+DB_PASSWORD="A123456b"
+
+ODOO_VERSION="19.0"
+
+# =========================
+# Instalar Docker en Ubuntu
+# =========================
+apt-get update -y
+apt-get install -y docker.io
+
+systemctl enable docker
+systemctl start docker
+
+usermod -aG docker ubuntu || true
+
+# =========================
+# Preparar carpetas locales
+# OJO: en ASG real, lo recomendable es montar EFS aquí
+# para compartir /var/lib/odoo entre instancias.
+# =========================
+mkdir -p /opt/odoo/data
+mkdir -p /opt/odoo/addons
+
+chmod -R 777 /opt/odoo
+
+# =========================
+# Descargar imagen Odoo
+# =========================
+docker pull odoo:${ODOO_VERSION}
+
+# =========================
+# Limpiar contenedor previo si existiera
+# Útil si el user-data se reejecuta manualmente
+# =========================
+docker rm -f odoo19 || true
+
+# =========================
+# Arrancar Odoo 19 contra BBDD ya inicializada
+# =========================
+docker run -d \
+  --name odoo19 \
+  --restart unless-stopped \
+  -p 80:8069 \
+  -p 8072:8072 \
+  -e HOST="${DB_HOST}" \
+  -e PORT="${DB_PORT}" \
+  -e USER="${DB_USER}" \
+  -e PASSWORD="${DB_PASSWORD}" \
+  -v /opt/odoo/data:/var/lib/odoo \
+  -v /opt/odoo/addons:/mnt/extra-addons \
+  odoo:${ODOO_VERSION} \
+  odoo \
+    -d "${DB_NAME}" \
+    --db-filter="^${DB_NAME}$" \
+    --proxy-mode \
+    --workers=2 \
+    --gevent-port=8072
