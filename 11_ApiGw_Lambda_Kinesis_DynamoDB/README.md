@@ -176,7 +176,7 @@ Finalmente, conectamos el ERP usando su función nativa de Webhooks para evitar 
 
 Una vez que Odoo termine de cargar, vuelve a Ajustes > Técnico > Automatización.
 
-    Ve a Ajustes > Técnico > Automatización > Acciones Automatizadas.
+    Ve a Ajustes > Técnico > Automatización > Acciones Automatizadas.  (Reglas de automatización)
 
     Dale a Nuevo:
 
