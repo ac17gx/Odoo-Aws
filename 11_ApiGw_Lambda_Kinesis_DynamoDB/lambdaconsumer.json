@@ -1,5 +1,9 @@
 {
-  "id": 123,
-  "name": "Camiseta Azul",
-  "list_price": 24.95
+  "Records": [
+    {
+      "kinesis": {
+        "data": "eyJpZCI6IDEyMywgIm5hbWUiOiAiQ2FtaXNldGEgQXp1bCIsICJsaXN0X3ByaWNlIjogMjQuOTV9"
+      }
+    }
+  ]
 }
