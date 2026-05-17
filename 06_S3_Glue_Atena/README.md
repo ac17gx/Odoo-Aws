@@ -94,7 +94,7 @@ FROM "odoo_analytics"."e_odoo_ventas_2026"
 LIMIT 20;
  ```
 3. Resumen general de ventas
-4.  ```
+ ```
 SELECT
     COUNT(*) AS num_lineas,
     COUNT(DISTINCT order_id) AS num_pedidos,
