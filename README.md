@@ -120,9 +120,6 @@ The actual log will also be at /etc/odoo/odoo.log inside the container
 ```
 ## 8. DdBeaver
 ```
-docker run -d --network odoo-docker_default --name cloudbeaver --restart unless-stopped -p 8978:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
-```
-```
 docker run -d --network odoo-pilot_odoo-net --name cloudbeaver --restart unless-stopped -p 8978:8978 -v /opt/cloudbeaver/workspace dbeaver/cloudbeaver:latest
 ```
 
