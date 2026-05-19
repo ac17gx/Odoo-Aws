@@ -134,6 +134,7 @@ docker-compose exec db ss -lnt
 docker-compose exec db psql -U odoo -d postgres
 docker-compose exec db bash
 docker exec -it ID-Postgress /bin/bash
+sudo dnf install postgresql15 -y
 psql -U odoo -d postgres
 \du               usuarios
 \l                bases de datos
